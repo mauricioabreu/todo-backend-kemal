@@ -40,5 +40,5 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [mauricioabreu](https://github.com/mauricioabreu]) Mauricio Antunes - creator, maintainer
-- [rzanluchi](https://github.com/rzanluchi]) Raphael Zanluchi - creator, maintainer
+- [mauricioabreu](https://github.com/mauricioabreu) Mauricio Antunes - creator, maintainer
+- [rzanluchi](https://github.com/rzanluchi) Raphael Zanluchi - creator, maintainer
