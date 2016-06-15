@@ -5,3 +5,13 @@ authors:
   - Mauricio Antunes <mauricio.antunes@azion.com>
 
 license: MIT
+
+dependencies:
+  kemal:
+    github: sdogruyol/kemal
+    branch: master
+
+development_dependencies:
+  spec2:
+    github: waterlink/spec2.cr
+    version: ~> 0.8.0
