@@ -20,7 +20,6 @@ module Todo
 
   end
 
-
   class TodoItem
 
     def initialize(@name: String, @checked = false)
@@ -31,6 +30,5 @@ module Todo
     end
 
   end
-
 
 end
