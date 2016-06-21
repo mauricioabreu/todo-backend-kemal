@@ -2,7 +2,6 @@ require "./spec_helper"
 require "spec2"
 
 Spec2.describe Todo do
-
   describe Todo::TodoHandler do
     describe "list_todos" do
       context "When a fresh instance" do
@@ -19,6 +18,7 @@ Spec2.describe Todo do
         handler = Todo::TodoHandler.new Todo::TodoRepository.new
         handler.add_todo_item "default_todo", "Finish work"
         default_todo = handler.list_todos[0]
+        lala = Todo::TodoList.from_json default_todo.to_json
         expect(default_todo.todo_list.size).to eq 1
         expect(default_todo.todo_list[0].name).to eq "Finish work"
         expect(default_todo.todo_list[0].is_done).to be_false
@@ -51,6 +51,8 @@ Spec2.describe Todo do
       it "should clear all todo items from a todo list" do
         handler = Todo::TodoHandler.new Todo::TodoRepository.new
         handler.add_todo_item "default_todo", "Finish work"
+        items = handler.list_todo_items "default_todo"
+        expect(items.size).to eq 1
         handler.clear_todo "default_todo"
         items = handler.list_todo_items "default_todo"
         expect(items.size).to eq 0
@@ -68,7 +70,5 @@ Spec2.describe Todo do
         expect(items[0].is_done).to be_true
       end
     end
-
   end
-
 end

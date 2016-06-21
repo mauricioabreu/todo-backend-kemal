@@ -1,7 +1,5 @@
 module Todo
-
   class TodoList
-
     def initialize(@_id : String)
       @todo_list = Array(TodoItem).new
     end
@@ -31,12 +29,10 @@ module Todo
         item._id == item_id
       end
     end
-
   end
 
   class TodoItem
-
-    def initialize(@name : String, @_id : String, @done=false)
+    def initialize(@name : String, @_id : String, @done = false)
     end
 
     def _id
@@ -54,7 +50,5 @@ module Todo
     def mark_as_done
       @done = true
     end
-
   end
-
 end
