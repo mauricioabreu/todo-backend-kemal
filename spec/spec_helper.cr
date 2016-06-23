@@ -1,2 +1,3 @@
 require "spec"
-require "../src/todo/*"
+require "spec-kemal"
+require "../src/todo"
