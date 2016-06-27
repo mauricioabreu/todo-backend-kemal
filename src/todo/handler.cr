@@ -5,13 +5,23 @@ module Todo
     def initialize(@todo_repo : TodoRepository)
     end
 
-    def add_todo_item(item_title : String)
-      todo_item = TodoItem.new item_title, SecureRandom.uuid
-      @todo_repo.save(todo_item)
+    def add_todo_item(item_title : String, order : Int32 = nil)
+      if order == nil
+        order = @todo_repo.size + 1
+      end
+      todo_item = TodoItem.new item_title, SecureRandom.uuid, order.as Int32
+      @todo_repo.save todo_item
+    end
+
+    def update_todo_item(item_id : String, *, item_title : String = nil, completed : Bool = nil)
+      todo = @todo_repo.get_todo item_id
+      todo.title = !item_title.nil? ? item_title.as String : todo.title
+      todo.completed = !completed.nil? ? completed.as Bool : todo.completed
+      @todo_repo.save todo
     end
 
     def remove_todo_item(item_id : String)
-      @todo_repo.delete(item_id)
+      @todo_repo.delete item_id
     end
 
     def list_todos
@@ -26,14 +36,5 @@ module Todo
       @todo_repo.get_todo item_id
     end
 
-    def mark_as_done(item_id : String)
-      item = @todo_repo.get_todo item_id
-      # If don't have this if crystal throws a compile time error
-      # because my find does not have a default value
-      if item
-        item.mark_as_done
-      end
-      @todo_repo.save(item)
-    end
   end
 end

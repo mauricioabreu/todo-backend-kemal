@@ -11,7 +11,15 @@ describe Todo do
         all_items.size.should eq 1
         all_items.[0].title.should eq "Finish work"
         all_items.[0].completed.should be_false
+        all_items.[0].order.should eq 1
         all_items.[0]._id.should be_a(String)
+      end
+
+      it "should accept order parameter" do
+        handler = Todo::TodoHandler.new Todo::TodoRepository.new
+        handler.add_todo_item "Finish work", 500
+        item = handler.list_todos[0]
+        item.order.should eq 500
       end
     end
 
@@ -47,15 +55,21 @@ describe Todo do
       end
     end
 
-    describe "mark_as_done" do
+    describe "update_todo" do
       it "Should mark a single todo as marked" do
         handler = Todo::TodoHandler.new Todo::TodoRepository.new
-        handler.add_todo_item "Finish work"
-        items = handler.list_todos
-        item = items[0]
-        handler.mark_as_done item._id
+        item = handler.add_todo_item "Finish work"
+        handler.update_todo_item item._id, completed: true
         items = handler.get_todo item._id
         items.completed.should be_true
+      end
+
+      it "Should change title" do
+        handler = Todo::TodoHandler.new Todo::TodoRepository.new
+        item = handler.add_todo_item "Finish work"
+        handler.update_todo_item item._id, item_title: "Another work"
+        items = handler.get_todo item._id
+        items.title.should eq "Another work"
       end
     end
   end

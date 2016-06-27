@@ -1,7 +1,15 @@
 module Todo
 
   class TodoItem
-    def initialize(@title : String, @_id : String, @completed= false)
+    def initialize(@title : String, @_id : String, @order : Int32, @completed = false)
+    end
+
+    def order(order : Int32)
+      @order = order
+    end
+
+    def order
+      @order
     end
 
     def _id

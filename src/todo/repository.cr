@@ -6,11 +6,13 @@ module Todo
     JSON.mapping({
       _id:  String,
       title: String,
+      order: Int32,
       completed: Bool,
     })
   end
 
   class TodoRepository
+
     def initialize
       @todo_list = {} of String => TodoItem
     end
@@ -29,6 +31,7 @@ module Todo
 
     def save(todo : TodoItem)
       @todo_list[todo._id] = todo
+      todo
     end
 
     def delete(todo_id : String)
@@ -37,6 +40,10 @@ module Todo
 
     def clear
       @todo_list.clear
+    end
+
+    def size
+      @todo_list.size
     end
 
   end
