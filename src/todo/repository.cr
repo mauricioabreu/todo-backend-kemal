@@ -1,45 +1,44 @@
 require "json"
 
 module Todo
-  class TodoList
-    JSON.mapping({
-      _id:       String,
-      todo_list: Array(TodoItem),
-    })
-  end
 
   class TodoItem
     JSON.mapping({
       _id:  String,
-      name: String,
-      done: Bool,
+      title: String,
+      completed: Bool,
     })
   end
 
   class TodoRepository
     def initialize
-      @todo_list = {
-        "default_todo" => TodoList.new "default_todo",
-      }
+      @todo_list = {} of String => TodoItem
     end
 
     def get_all
-      list = Array(TodoList).new
+      list = Array(TodoItem).new
       @todo_list.each do |key, value|
-        list.push(TodoList.from_json value.to_json)
+        list.push(TodoItem.from_json value.to_json)
       end
       list
     end
 
     def get_todo(todo_id : String)
-      TodoList.from_json @todo_list[todo_id].to_json
+      TodoItem.from_json @todo_list[todo_id].to_json
     end
 
-    def save(todo : TodoList)
+    def save(todo : TodoItem)
       @todo_list[todo._id] = todo
     end
 
-    def delete(todo : TotoList)
+    def delete(todo_id : String)
+      @todo_list.delete todo_id
     end
+
+    def clear
+      @todo_list.clear
+    end
+
   end
+
 end
