@@ -56,6 +56,15 @@ post "/todos" do |env|
   repr(todo, base_url(env)).to_json
 end
 
+patch "/todos/:id" do |env|
+  id = env.params.url["id"].as(String)
+  title = env.params.json["title"] as String
+  completed = env.params.json["completed"] as Bool
+  order = env.params.json["order"] as Int64
+  todo = Handler.update_todo_item id, item_title: title, completed: completed, order: order
+  repr(todo, base_url(env)).to_json
+end
+
 delete "/todos" do |env|
   Handler.clear_todo
   env.response.status_code = 204

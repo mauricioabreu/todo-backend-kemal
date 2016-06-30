@@ -13,10 +13,17 @@ module Todo
       @todo_repo.save todo_item
     end
 
-    def update_todo_item(item_id : String, *, item_title : String = nil, completed : Bool = nil)
+    def update_todo_item(item_id : String, *, item_title : String,
+                         completed : Bool, order : Int64)
+      update_todo_item item_id, item_title: item_title, completed: completed, order: order.to_i
+    end
+
+    def update_todo_item(item_id : String, *, item_title : String,
+                         completed : Bool, order : Int32)
       todo = @todo_repo.get_todo item_id
       todo.title = !item_title.nil? ? item_title.as String : todo.title
       todo.completed = !completed.nil? ? completed.as Bool : todo.completed
+      todo.order = !order.nil? ? order.as Int32 : todo.order
       @todo_repo.save todo
     end
 
