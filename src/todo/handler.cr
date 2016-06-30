@@ -21,9 +21,9 @@ module Todo
     def update_todo_item(item_id : String, *, item_title : String,
                          completed : Bool, order : Int32)
       todo = @todo_repo.get_todo item_id
-      todo.title = !item_title.nil? ? item_title.as String : todo.title
-      todo.completed = !completed.nil? ? completed.as Bool : todo.completed
-      todo.order = !order.nil? ? order.as Int32 : todo.order
+      todo.title = item_title
+      todo.completed = completed
+      todo.order = order.as Int32
       @todo_repo.save todo
     end
 
