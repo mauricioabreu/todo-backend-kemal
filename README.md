@@ -20,15 +20,18 @@ dependencies:
 
 
 ```crystal
-require "todo"
+crystal src/app.cr
 ```
 
-
-TODO: Write usage instructions here
+Now you can use an HTTP client like cURL and use the API.
 
 ## Development
 
-TODO: Write development instructions here
+Tests:
+
+```
+crystal spec
+```
 
 ## Contributing
 
