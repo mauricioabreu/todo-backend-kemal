@@ -5,10 +5,17 @@ module Todo
     def initialize(@todo_repo : TodoRepository)
     end
 
-    def add_todo_item(item_title : String, order : Int32 = nil)
-      if order == nil
-        order = @todo_repo.size + 1
-      end
+    def add_todo_item(item_title : String, order : Int64)
+      add_todo_item item_title, order.to_i
+    end
+
+    def add_todo_item(item_title : String, order : Nil)
+      order = @todo_repo.size + 1
+      todo_item = TodoItem.new item_title, SecureRandom.uuid, order.as Int32
+      @todo_repo.save todo_item
+    end
+
+    def add_todo_item(item_title : String, order : Int32)
       todo_item = TodoItem.new item_title, SecureRandom.uuid, order.as Int32
       @todo_repo.save todo_item
     end
