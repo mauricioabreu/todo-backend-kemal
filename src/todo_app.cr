@@ -21,6 +21,7 @@ def repr(todo, base_url)
   {"uid"   => todo._id,
     "title" => todo.title,
     "order" => todo.order,
+    "completed" => todo.completed,
     "url"   => base_url + todo_url(todo._id)
   }
 end
@@ -29,18 +30,39 @@ before_all "/todos" do |env|
   # Support CORS and set responses to JSON as default.
   headers env, {
     "Access-Control-Allow-Origin" => "*",
-    "Content-Type" => "application/json"
+    "Content-Type" => "application/json",
+    "Access-Control-Allow-Headers" => "Content-Type"
   }
 end
 
+before_all "/todos/:id" do |env|
+  # Support CORS and set responses to JSON as default.
+  headers env, {
+    "Access-Control-Allow-Origin" => "*",
+    "Content-Type" => "application/json",
+    "Access-Control-Allow-Headers" => "Content-Type"
+  }
+end
 
 get "/" do |env|
   env.redirect TODOS_URI
 end
 
+options "/todos" do |env|
+  headers env, {
+    "Access-Control-Allow-Methods" => "GET,HEAD,POST,DELETE,OPTIONS,PUT,PATCH"
+  }
+end
+
 get "/todos" do |env|
   todos = Handler.list_todos
   todos.map { |todo| repr(todo, base_url(env)) }.to_json
+end
+
+options "/todos/:id" do |env|
+  headers env, {
+    "Access-Control-Allow-Methods" => "GET,HEAD,POST,DELETE,OPTIONS,PUT,PATCH"
+  }
 end
 
 get "/todos/:id" do |env|
@@ -51,7 +73,8 @@ end
 
 post "/todos" do |env|
   title = env.params.json["title"].as(String)
-  todo = Handler.add_todo_item title
+  order = env.params.json.fetch("order", nil) as (Nil | Int64)
+  todo = Handler.add_todo_item title, order
   env.response.status_code = 201
   repr(todo, base_url(env)).to_json
 end
