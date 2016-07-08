@@ -18,11 +18,11 @@ def todo_url(id)
 end
 
 def repr(todo, base_url)
-  {"uid"   => todo._id,
-    "title" => todo.title,
-    "order" => todo.order,
-    "completed" => todo.completed,
-    "url"   => base_url + todo_url(todo._id)
+  {uid: todo._id,
+   title: todo.title,
+   order: todo.order,
+   completed: todo.completed,
+   url: base_url + todo_url(todo._id)
   }
 end
 
