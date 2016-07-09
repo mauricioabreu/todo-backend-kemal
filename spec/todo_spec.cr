@@ -59,18 +59,11 @@ describe Todo do
       it "Should mark a single todo as marked" do
         handler = Todo::TodoHandler.new Todo::TodoRepository.new
         item = handler.add_todo_item "Finish work"
-        handler.update_todo_item item._id, completed: true
+        handler.update_todo_item item._id, completed: true, item_title: "Another title", order: 1 
         items = handler.get_todo item._id
         items.completed.should be_true
       end
 
-      it "Should change title" do
-        handler = Todo::TodoHandler.new Todo::TodoRepository.new
-        item = handler.add_todo_item "Finish work"
-        handler.update_todo_item item._id, item_title: "Another work"
-        items = handler.get_todo item._id
-        items.title.should eq "Another work"
-      end
     end
   end
 end

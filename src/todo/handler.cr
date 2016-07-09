@@ -5,6 +5,10 @@ module Todo
     def initialize(@todo_repo : TodoRepository)
     end
 
+    def add_todo_item(item_title : String)
+      add_todo_item item_title, nil
+    end
+
     def add_todo_item(item_title : String, order : Int64)
       add_todo_item item_title, order.to_i
     end
