@@ -18,29 +18,29 @@ def todo_url(id)
 end
 
 def repr(todo, base_url)
-  {uid: todo._id,
-   title: todo.title,
-   order: todo.order,
-   completed: todo.completed,
-   url: base_url + todo_url(todo._id)
+  {uid:       todo._id,
+    title:     todo.title,
+    order:     todo.order,
+    completed: todo.completed,
+    url:       base_url + todo_url(todo._id),
   }
 end
 
 before_all "/todos" do |env|
   # Support CORS and set responses to JSON as default.
   headers env, {
-    "Access-Control-Allow-Origin" => "*",
-    "Content-Type" => "application/json",
-    "Access-Control-Allow-Headers" => "Content-Type"
+    "Access-Control-Allow-Origin"  => "*",
+    "Content-Type"                 => "application/json",
+    "Access-Control-Allow-Headers" => "Content-Type",
   }
 end
 
 before_all "/todos/:id" do |env|
   # Support CORS and set responses to JSON as default.
   headers env, {
-    "Access-Control-Allow-Origin" => "*",
-    "Content-Type" => "application/json",
-    "Access-Control-Allow-Headers" => "Content-Type"
+    "Access-Control-Allow-Origin"  => "*",
+    "Content-Type"                 => "application/json",
+    "Access-Control-Allow-Headers" => "Content-Type",
   }
 end
 
@@ -50,7 +50,7 @@ end
 
 options "/todos" do |env|
   headers env, {
-    "Access-Control-Allow-Methods" => "GET,HEAD,POST,DELETE,OPTIONS,PUT,PATCH"
+    "Access-Control-Allow-Methods" => "GET,HEAD,POST,DELETE,OPTIONS,PUT,PATCH",
   }
 end
 
@@ -61,7 +61,7 @@ end
 
 options "/todos/:id" do |env|
   headers env, {
-    "Access-Control-Allow-Methods" => "GET,HEAD,POST,DELETE,OPTIONS,PUT,PATCH"
+    "Access-Control-Allow-Methods" => "GET,HEAD,POST,DELETE,OPTIONS,PUT,PATCH",
   }
 end
 
@@ -73,7 +73,7 @@ end
 
 post "/todos" do |env|
   title = env.params.json["title"].as(String)
-  order = env.params.json.fetch("order", nil) as (Nil | Int64)
+  order = env.params.json.fetch("order", nil).as(Nil | Int64)
   todo = Handler.add_todo_item title, order
   env.response.status_code = 201
   repr(todo, base_url(env)).to_json
@@ -82,9 +82,9 @@ end
 patch "/todos/:id" do |env|
   id = env.params.url["id"].as(String)
   todo = Handler.get_todo id
-  title = env.params.json.fetch("title", todo.title) as String
-  completed = env.params.json.fetch("completed", todo.completed) as Bool
-  order = env.params.json.fetch("order", todo.order) as (Int32 | Int64)
+  title = env.params.json.fetch("title", todo.title).as(String)
+  completed = env.params.json.fetch("completed", todo.completed).as(Bool)
+  order = env.params.json.fetch("order", todo.order).as(Int32 | Int64)
   todo = Handler.update_todo_item id, item_title: title, completed: completed, order: order
   repr(todo, base_url(env)).to_json
 end
