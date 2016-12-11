@@ -6,7 +6,6 @@ For more information about this project and other implementations go to: http://
 
 ## Installation
 
-
 Add this to your application's `shard.yml`:
 
 ```yaml
@@ -15,9 +14,7 @@ dependencies:
     github: mauricioabreu/todo
 ```
 
-
 ## Usage
-
 
 ```crystal
 crystal src/app.cr
@@ -35,11 +32,9 @@ crystal spec
 
 ## Contributing
 
-1. Fork it ( https://github.com/mauricioabreu/todo/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create a new Pull Request
+Found a bug? Have a suggestion? Please [open an issue](https://github.com/mauricioabreu/todo-backend-kemal/issues/new).
+
+Want to contribute? Take a look at our [open issues](https://github.com/mauricioabreu/todo-backend-kemal/issues) and make sure you follow our [guide](CONTRIBUTING.md).
 
 ## Contributors
 
