@@ -2,7 +2,6 @@ require "./spec_helper"
 
 describe Todo do
   describe Todo::TodoHandler do
-
     describe "add_todo" do
       it "should add a todo into repository" do
         handler = Todo::TodoHandler.new Todo::TodoRepository.new
@@ -59,11 +58,10 @@ describe Todo do
       it "Should mark a single todo as marked" do
         handler = Todo::TodoHandler.new Todo::TodoRepository.new
         item = handler.add_todo_item "Finish work"
-        handler.update_todo_item item._id, completed: true, item_title: "Another title", order: 1 
+        handler.update_todo_item item._id, completed: true, item_title: "Another title", order: 1
         items = handler.get_todo item._id
         items.completed.should be_true
       end
-
     end
   end
 end

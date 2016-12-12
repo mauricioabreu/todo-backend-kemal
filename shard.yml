@@ -10,3 +10,7 @@ dependencies:
   kemal:
     github: sdogruyol/kemal
     branch: master
+
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    branch: master
