@@ -1,5 +1,7 @@
 # todo
 
+[![Build Status](https://travis-ci.org/mauricioabreu/todo-backend-kemal.svg?branch=master)](https://travis-ci.org/mauricioabreu/todo-backend-kemal)
+
 Todo-Backend application written in Crystal using the Kemal framework.
 
 For more information about this project and other implementations go to: http://todobackend.com/
